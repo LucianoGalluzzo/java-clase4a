@@ -11,43 +11,35 @@ public class Main {
 
     public static void main(String[] args) {
 	// write your code here
-        Integer[] enteros = new Integer[100];
+        Integer[] enteros = new Integer[100000];
         for (int i = 0; i < enteros.length; i++){
-            enteros[i] = ThreadLocalRandom.current().nextInt(1, 80);
-            System.out.println(enteros[i]);
+            enteros[i] = ThreadLocalRandom.current().nextInt(1, 100000);
+            //System.out.println(enteros[i]);
         }
-        Comparator<Integer> comparadores = (a,b)->a - b;
+        String[] cadenas = {"Casa", "Gato", "Vaca", "Hola", "Sol", "Arbol"};
+        Comparator<Integer> c1 = (a,b)->a - b;
+        Comparator<String> c2 = (a,b)->a.compareTo(b);
 
-        //QuickSortSorterImple quick = new QuickSortSorterImple();
-        //quick.sort(enteros, comparadores);
-        //System.out.println("------");
-        //for (int i = 0; i < enteros.length; i++){
-        //    System.out.println(enteros[i]);
-        //}
-//
-        //HeapSortSorterImple heap = new HeapSortSorterImple();
-        //heap.sort(enteros, comparadores);
-        //System.out.println("------");
-        //for (int i = 0; i < enteros.length; i++){
-        //    System.out.println(enteros[i]);
-        //}
-
-        //BubbleSortSorterImple bubble = new BubbleSortSorterImple();
-        //bubble.sort(enteros, comparadores);
-        //System.out.println("------");
-        //for (int i = 0; i < enteros.length; i++){
-        //    System.out.println(enteros[i]);
-        //}
         try {
             MyFactory factory = new MyFactory();
             Sorter instancia = (Sorter)factory.getInstance("sorter");
-            instancia.sort(enteros, comparadores);
+            Time time = new Time();
+            time.start();
+            instancia.sort(enteros, c1);
+            time.stop();
+            System.out.println("El tiempo transcurrido es de " + time.elapsedTime() + " milisegundos");
+            //instancia.sort(cadenas, c2);
             for (int i = 0; i < enteros.length; i++){
                 System.out.println(enteros[i]);
             }
+            /*for (int i = 0; i < cadenas.length; i++){
+                System.out.println(cadenas[i]);
+            }*/
         }catch (Exception e){
-
+            e.printStackTrace();
         }
+
+
 
     }
 }
